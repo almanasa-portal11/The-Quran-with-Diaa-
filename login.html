@@ -1,0 +1,13 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تسجيل الدخول</title><link rel="stylesheet" href="style.css"></head><body>
+<header><b>مركز تحفيظ القرآن الكريم</b><a href="index.html" class="btn out">الرئيسية</a></header>
+<main><div class="card" style="max-width:400px;margin:40px auto"><h2>تسجيل الدخول</h2>
+<form id="f"><input name="email" type="email" placeholder="البريد الإلكتروني" required>
+<input name="password" type="password" placeholder="كلمة المرور" required><button>دخول</button> <span id="m" class="msg"></span></form></div></main>
+<script src="config.js"></script>
+<script>
+document.getElementById("f").onsubmit=async e=>{e.preventDefault();const m=document.getElementById("m");m.textContent="";
+try{const r=await fetch(API_URL+"/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(Object.fromEntries(new FormData(e.target)))});
+const d=await r.json();if(!r.ok)throw 0;localStorage.setItem("token",d.token);localStorage.setItem("user",JSON.stringify(d.user));location="app.html"}
+catch{m.textContent="بيانات الدخول غير صحيحة"}};
+</script></body></html>

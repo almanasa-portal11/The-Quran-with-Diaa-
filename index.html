@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مركز تحفيظ القرآن الكريم أونلاين</title><link rel="stylesheet" href="style.css"></head><body>
+<header><b>مركز تحفيظ القرآن الكريم</b><a href="login.html" class="btn out">تسجيل الدخول</a></header>
+<main>
+<section class="hero"><h1>تعلّم القرآن وأنت في بيتك</h1><p>حلقات مباشرة عبر الإنترنت، ومتابعة دقيقة للحفظ والمراجعة، وتقارير لوليّ الأمر.</p></section>
+<div class="card"><h2>طلب التحاق جديد</h2>
+<form id="f"><input name="studentName" placeholder="اسم الطالب" required><input name="parentName" placeholder="اسم ولي الأمر" required>
+<input name="email" type="email" placeholder="البريد الإلكتروني" required><input name="phone" placeholder="رقم الهاتف" required>
+<textarea name="notes" placeholder="ملاحظات (العمر، مستوى الحفظ...)"></textarea>
+<button>إرسال الطلب</button> <span id="m"></span></form></div>
+</main>
+<script src="config.js"></script>
+<script>
+document.getElementById("f").onsubmit=async e=>{e.preventDefault();const m=document.getElementById("m");
+const d=Object.fromEntries(new FormData(e.target));if(!d.notes)delete d.notes;m.textContent="جارٍ الإرسال...";
+try{const r=await fetch(API_URL+"/api/admissions",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(d)});
+if(!r.ok)throw 0;m.className="ok";m.textContent="تم استلام طلبك، سنتواصل معك قريبًا.";e.target.reset()}
+catch{m.className="msg";m.textContent="تعذّر الإرسال، حاول لاحقًا."}};
+</script></body></html>
